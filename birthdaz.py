@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 class Birthday:
     def __init__(self, value):
         try:
-            self.value = datetime.strptime(value, '%d.%m.%Y')
+            self.value = datetime.strptime(value, '%d.%m.%Y').date()
         except ValueError:
             raise ValueError("Invalid date format. Use DD.MM.YYYY")
 
@@ -34,7 +34,7 @@ class AddressBook:
         upcoming_birthdays = []
         for record in self.records:
             if record.birthday:
-                birthday_this_year = record.birthday.value.replace(year=today.year)
+                birthday_this_year = record.birthday.value.replace(year=today.year).date()
                 if birthday_this_year < today:
                     birthday_this_year = birthday_this_year.replace(year=today.year + 1)
                 if 0 <= (birthday_this_year - today).days <= 7:
@@ -197,5 +197,6 @@ def main():
         else:
             print("Invalid command.")
 
+# Запуск основної функції програми
 if __name__ == "__main__":
     main()
